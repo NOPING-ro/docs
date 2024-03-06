@@ -824,6 +824,7 @@ declare module '@theme/SearchMetadata' {
 declare module '@theme/LastUpdated' {
   export interface Props {
     readonly lastUpdatedAt?: number;
+    readonly formattedLastUpdatedAt?: string;
     readonly lastUpdatedBy?: string;
   }
 
@@ -864,14 +865,6 @@ declare module '@theme/MDXComponents/Ul' {
   export interface Props extends ComponentProps<'ul'> {}
 
   export default function MDXUl(props: Props): JSX.Element;
-}
-
-declare module '@theme/MDXComponents/Li' {
-  import type {ComponentProps} from 'react';
-
-  export interface Props extends ComponentProps<'li'> {}
-
-  export default function MDXLi(props: Props): JSX.Element;
 }
 
 declare module '@theme/MDXComponents/Img' {

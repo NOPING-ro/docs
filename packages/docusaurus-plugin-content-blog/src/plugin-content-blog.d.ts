@@ -5,8 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-/// <reference types="@docusaurus/module-type-aliases" />
-
 declare module '@docusaurus/plugin-content-blog' {
   import type {LoadedMDXContent} from '@docusaurus/mdx-loader';
   import type {MDXOptions} from '@docusaurus/mdx-loader';
@@ -192,6 +190,11 @@ yarn workspace v1.22.19image` is a collocated image path, this entry will be the
      * into a string.
      */
     readonly date: Date;
+    /**
+     * Publish date formatted according to the locale, so that the client can
+     * render the date regardless of the existence of `Intl.DateTimeFormat`.
+     */
+    readonly formattedDate: string;
     /** Full link including base URL. */
     readonly permalink: string;
     /**
@@ -330,11 +333,6 @@ yarn workspace v1.22.19image` is a collocated image path, this entry will be the
       defaultReadingTime: ReadingTimeFunction;
     },
   ) => number | undefined;
-
-  export type ProcessBlogPostsFn = (params: {
-    blogPosts: BlogPost[];
-  }) => Promise<void | BlogPost[]>;
-
   /**
    * Plugin options after normalization.
    */
@@ -353,14 +351,9 @@ yarn workspace v1.22.19image` is a collocated image path, this entry will be the
     routeBasePath: string;
     /**
      * URL route for the tags section of your blog. Will be appended to
-     * `routeBasePath`.
+     * `routeBasePath`. **DO NOT** include a trailing slash.
      */
     tagsBasePath: string;
-    /**
-     * URL route for the pages section of your blog. Will be appended to
-     * `routeBasePath`.
-     */
-    pageBasePath: string;
     /**
      * URL route for the archive section of your blog. Will be appended to
      * `routeBasePath`. **DO NOT** include a trailing slash. Use `null` to
@@ -426,10 +419,6 @@ yarn workspace v1.22.19image` is a collocated image path, this entry will be the
     readingTime: ReadingTimeFunctionOption;
     /** Governs the direction of blog post sorting. */
     sortPosts: 'ascending' | 'descending';
-    /** An optional function which can be used to transform blog posts
-     *  (filter, modify, delete, etc...).
-     */
-    processBlogPosts: ProcessBlogPostsFn;
   };
 
   /**
@@ -470,13 +459,6 @@ yarn workspace v1.22.19image` is a collocated image path, this entry will be the
     blogListPaginated: BlogPaginated[];
     blogTags: BlogTags;
     blogTagsListPath: string;
-  };
-
-  export type BlogMetadata = {
-    /** the path to the base of the blog */
-    blogBasePath: string;
-    /** title of the overall blog */
-    blogTitle: string;
   };
 
   export type BlogTags = {
@@ -550,7 +532,6 @@ declare module '@theme/BlogPostPage' {
     BlogPostFrontMatter,
     BlogSidebar,
     PropBlogPostContent,
-    BlogMetadata,
   } from '@docusaurus/plugin-content-blog';
 
   export type FrontMatter = BlogPostFrontMatter;
@@ -562,8 +543,6 @@ declare module '@theme/BlogPostPage' {
     readonly sidebar: BlogSidebar;
     /** Content of this post as an MDX component, with useful metadata. */
     readonly content: Content;
-    /** Metadata about the blog. */
-    readonly blogMetadata: BlogMetadata;
   }
 
   export default function BlogPostPage(props: Props): JSX.Element;
@@ -571,10 +550,6 @@ declare module '@theme/BlogPostPage' {
 
 declare module '@theme/BlogPostPage/Metadata' {
   export default function BlogPostPageMetadata(): JSX.Element;
-}
-
-declare module '@theme/BlogPostPage/StructuredData' {
-  export default function BlogPostStructuredData(): JSX.Element;
 }
 
 declare module '@theme/BlogListPage' {
@@ -597,28 +572,6 @@ declare module '@theme/BlogListPage' {
   }
 
   export default function BlogListPage(props: Props): JSX.Element;
-}
-
-declare module '@theme/BlogListPage/StructuredData' {
-  import type {Content} from '@theme/BlogPostPage';
-  import type {
-    BlogSidebar,
-    BlogPaginatedMetadata,
-  } from '@docusaurus/plugin-content-blog';
-
-  export interface Props {
-    /** Blog sidebar. */
-    readonly sidebar: BlogSidebar;
-    /** Metadata of the current listing page. */
-    readonly metadata: BlogPaginatedMetadata;
-    /**
-     * Array of blog posts included on this page. Every post's metadata is also
-     * available.
-     */
-    readonly items: readonly {readonly content: Content}[];
-  }
-
-  export default function BlogListPageStructuredData(props: Props): JSX.Element;
 }
 
 declare module '@theme/BlogTagsListPage' {

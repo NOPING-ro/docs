@@ -115,7 +115,6 @@ async function createTestSite() {
       wrap: true,
       danger: true,
       typescript,
-      javascript: !typescript,
     });
   }
 
@@ -130,7 +129,6 @@ async function createTestSite() {
       eject: true,
       danger: true,
       typescript,
-      javascript: !typescript,
     });
   }
 

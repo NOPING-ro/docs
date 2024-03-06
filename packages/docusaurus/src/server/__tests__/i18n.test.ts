@@ -81,7 +81,7 @@ describe('defaultLocaleConfig', () => {
       label: 'فارسی',
       direction: 'rtl',
       htmlLang: 'fa',
-      calendar: 'persian',
+      calendar: 'gregory',
       path: 'fa',
     });
     expect(getDefaultLocaleConfig('fa-IR')).toEqual({
@@ -89,7 +89,7 @@ describe('defaultLocaleConfig', () => {
       label: 'فارسی (ایران)',
       direction: 'rtl',
       htmlLang: 'fa-IR',
-      calendar: 'persian',
+      calendar: 'gregory',
       path: 'fa-IR',
     });
     expect(getDefaultLocaleConfig('en-US-u-ca-buddhist')).toEqual({

@@ -5,9 +5,9 @@ Agan
 alexbdebrie
 Alexey
 algoliasearch
-Allez
 Anshul
 anshul
+août
 APFS
 apfs
 appinstalled
@@ -52,7 +52,6 @@ Codespaces
 commonmark
 contravariance
 corejs
-Couriol
 creativecommons
 Csapo
 Csvg
@@ -66,7 +65,6 @@ datagit
 Datagit's
 dedup
 devto
-dingers
 Dmitry
 docsearch
 Docsify
@@ -105,6 +103,7 @@ Formik
 FOUC
 froms
 funboxteam
+février
 gabrielcsapo
 Gifs
 Goss
@@ -138,12 +137,14 @@ interactiveness
 Interpolatable
 interpolatable
 Investec
+janvier
 javadoc
 jiti
 jmarcey
 jodyheavener
 joshcena
 jssdk
+juillet
 Kaszubowski
 Katex
 katex
@@ -182,9 +183,6 @@ MDXAST
 MDXHAST
 Mdxjs
 mdxjs
-Meilisearch
-meilisearch
-merveilleuse
 metadatum
 metastring
 metrica
@@ -360,7 +358,6 @@ triaging
 TSES
 twoslash
 typecheck
-typesafe
 Typesense
 typesense
 Unavatar
@@ -383,7 +380,6 @@ Vieira
 Viet
 Vinnik
 vjeux
-voir
 waivable
 WCAG
 wcag
@@ -400,4 +396,3 @@ yangshunz
 Zhou
 zoomable
 zpao
-ödingers

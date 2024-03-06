@@ -20,12 +20,11 @@ import {
   DEFAULT_PLUGIN_ID,
 } from '@docusaurus/utils';
 import {
+  generateBlogPosts,
   getSourceToPermalink,
   getBlogTags,
   paginateBlogPosts,
   shouldBeListed,
-  applyProcessBlogPosts,
-  generateBlogPosts,
 } from './blogUtils';
 import footnoteIDFixer from './remark/footnoteIDFixer';
 import {translateContent, getTranslationFiles} from './translations';
@@ -43,7 +42,6 @@ import type {
   BlogTags,
   BlogContent,
   BlogPaginated,
-  BlogMetadata,
 } from '@docusaurus/plugin-content-blog';
 
 export default async function pluginContentBlog(
@@ -109,16 +107,11 @@ export default async function pluginContentBlog(
         blogDescription,
         blogTitle,
         blogSidebarTitle,
-        pageBasePath,
       } = options;
 
       const baseBlogUrl = normalizeUrl([baseUrl, routeBasePath]);
       const blogTagsListPath = normalizeUrl([baseBlogUrl, tagsBasePath]);
-      let blogPosts = await generateBlogPosts(contentPaths, context, options);
-      blogPosts = await applyProcessBlogPosts({
-        blogPosts,
-        processBlogPosts: options.processBlogPosts,
-      });
+      const blogPosts = await generateBlogPosts(contentPaths, context, options);
       const listedBlogPosts = blogPosts.filter(shouldBeListed);
 
       if (!blogPosts.length) {
@@ -128,10 +121,11 @@ export default async function pluginContentBlog(
           blogListPaginated: [],
           blogTags: {},
           blogTagsListPath,
+          blogTagsPaginated: [],
         };
       }
 
-      // Collocate next and prev metadata.
+      // Colocate next and prev metadata.
       listedBlogPosts.forEach((blogPost, index) => {
         const prevItem = index > 0 ? listedBlogPosts[index - 1] : null;
         if (prevItem) {
@@ -159,7 +153,6 @@ export default async function pluginContentBlog(
         blogDescription,
         postsPerPageOption,
         basePageUrl: baseBlogUrl,
-        pageBasePath,
       });
 
       const blogTags: BlogTags = getBlogTags({
@@ -167,7 +160,6 @@ export default async function pluginContentBlog(
         postsPerPageOption,
         blogDescription,
         blogTitle,
-        pageBasePath,
       });
 
       return {
@@ -188,7 +180,6 @@ export default async function pluginContentBlog(
         blogArchiveComponent,
         routeBasePath,
         archiveBasePath,
-        blogTitle,
       } = options;
 
       const {addRoute, createData} = actions;
@@ -264,15 +255,6 @@ export default async function pluginContentBlog(
         ),
       );
 
-      const blogMetadata: BlogMetadata = {
-        blogBasePath: normalizeUrl([baseUrl, routeBasePath]),
-        blogTitle,
-      };
-      const blogMetadataPath = await createData(
-        `blogMetadata-${pluginId}.json`,
-        JSON.stringify(blogMetadata, null, 2),
-      );
-
       // Create routes for blog entries.
       await Promise.all(
         blogPosts.map(async (blogPost) => {
@@ -291,9 +273,6 @@ export default async function pluginContentBlog(
             modules: {
               sidebar: aliasedSource(sidebarProp),
               content: metadata.source,
-            },
-            context: {
-              blogMetadata: aliasedSource(blogMetadataPath),
             },
           });
 

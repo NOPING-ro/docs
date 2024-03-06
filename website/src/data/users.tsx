@@ -2112,6 +2112,14 @@ const Users: User[] = [
     tags: ['opensource'],
   },
   {
+    title: 'Supabase',
+    description: 'Open Source Realtime and RESTful APIs for Postgres',
+    preview: require('./showcase/supabase.png'),
+    website: 'https://www.supabase.io/docs',
+    source: 'https://github.com/supabase/supabase/tree/master/web',
+    tags: ['opensource', 'favorite', 'design', 'large', 'product'],
+  },
+  {
     title: 'Svix',
     description: 'Webhooks as a Service',
     preview: require('./showcase/svix.png'),

@@ -31,14 +31,14 @@ export async function serve(
   const siteDir = await fs.realpath(siteDirParam);
 
   const buildDir = cliOptions.dir ?? DEFAULT_BUILD_DIR_NAME;
-  const outDir = path.resolve(siteDir, buildDir);
+  let dir = path.resolve(siteDir, buildDir);
 
   if (cliOptions.build) {
-    await build(
+    dir = await build(
       siteDir,
       {
         config: cliOptions.config,
-        outDir,
+        outDir: dir,
       },
       false,
     );
@@ -75,7 +75,7 @@ export async function serve(
 
     serveHandler(req, res, {
       cleanUrls: true,
-      public: outDir,
+      public: dir,
       trailingSlash,
       directoryListing: false,
     });

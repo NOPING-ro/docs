@@ -13,7 +13,6 @@ import BlogLayout from '@theme/BlogLayout';
 import BlogPostItem from '@theme/BlogPostItem';
 import BlogPostPaginator from '@theme/BlogPostPaginator';
 import BlogPostPageMetadata from '@theme/BlogPostPage/Metadata';
-import BlogPostPageStructuredData from '@theme/BlogPostPage/StructuredData';
 import TOC from '@theme/TOC';
 import type {Props} from '@theme/BlogPostPage';
 import Unlisted from '@theme/Unlisted';
@@ -46,7 +45,6 @@ function BlogPostPageContent({
         ) : undefined
       }>
       {unlisted && <Unlisted />}
-
       <BlogPostItem>{children}</BlogPostItem>
 
       {(nextItem || prevItem) && (
@@ -66,7 +64,6 @@ export default function BlogPostPage(props: Props): JSX.Element {
           ThemeClassNames.page.blogPostPage,
         )}>
         <BlogPostPageMetadata />
-        <BlogPostPageStructuredData />
         <BlogPostPageContent sidebar={props.sidebar}>
           <BlogPostContent />
         </BlogPostPageContent>

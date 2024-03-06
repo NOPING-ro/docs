@@ -301,29 +301,6 @@ describe('parseURLPath', () => {
     });
   });
 
-  it('parse anchor', () => {
-    expect(parseURLPath('#anchor')).toEqual({
-      pathname: '/',
-      search: undefined,
-      hash: 'anchor',
-    });
-    expect(parseURLPath('#anchor', '/page')).toEqual({
-      pathname: '/page',
-      search: undefined,
-      hash: 'anchor',
-    });
-    expect(parseURLPath('#')).toEqual({
-      pathname: '/',
-      search: undefined,
-      hash: '',
-    });
-    expect(parseURLPath('#', '/page')).toEqual({
-      pathname: '/page',
-      search: undefined,
-      hash: '',
-    });
-  });
-
   it('parse hash', () => {
     expect(parseURLPath('/page')).toEqual({
       pathname: '/page',

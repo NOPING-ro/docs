@@ -9,10 +9,7 @@ import React from 'react';
 import clsx from 'clsx';
 import {translate} from '@docusaurus/Translate';
 import {usePluralForm} from '@docusaurus/theme-common';
-import {
-  useBlogPost,
-  useDateTimeFormat,
-} from '@docusaurus/theme-common/internal';
+import {useBlogPost} from '@docusaurus/theme-common/internal';
 import type {Props} from '@theme/BlogPostItem/Header/Info';
 
 import styles from './styles.module.css';
@@ -42,14 +39,12 @@ function ReadingTime({readingTime}: {readingTime: number}) {
   return <>{readingTimePlural(readingTime)}</>;
 }
 
-function DateTime({
-  date,
-  formattedDate,
-}: {
-  date: string;
-  formattedDate: string;
-}) {
-  return <time dateTime={date}>{formattedDate}</time>;
+function Date({date, formattedDate}: {date: string; formattedDate: string}) {
+  return (
+    <time dateTime={date} itemProp="datePublished">
+      {formattedDate}
+    </time>
+  );
 }
 
 function Spacer() {
@@ -60,21 +55,11 @@ export default function BlogPostItemHeaderInfo({
   className,
 }: Props): JSX.Element {
   const {metadata} = useBlogPost();
-  const {date, readingTime} = metadata;
-
-  const dateTimeFormat = useDateTimeFormat({
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'UTC',
-  });
-
-  const formatDate = (blogDate: string) =>
-    dateTimeFormat.format(new Date(blogDate));
+  const {date, formattedDate, readingTime} = metadata;
 
   return (
     <div className={clsx(styles.container, 'margin-vert--md', className)}>
-      <DateTime date={date} formattedDate={formatDate(date)} />
+      <Date date={date} formattedDate={formattedDate} />
       {typeof readingTime !== 'undefined' && (
         <>
           <Spacer />

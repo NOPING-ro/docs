@@ -7,7 +7,7 @@
 
 import {mdxLoader} from './loader';
 
-import type {TOCItem as TOCItemImported} from './remark/toc/types';
+import type {TOCItem as TOCItemImported} from './remark/toc';
 
 export default mdxLoader;
 

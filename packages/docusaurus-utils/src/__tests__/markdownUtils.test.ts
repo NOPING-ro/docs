@@ -1166,37 +1166,6 @@ describe('unwrapMdxCodeBlocks', () => {
     `);
   });
 
-  it('can unwrap a simple mdx code block with CRLF', () => {
-    // Note: looks like string dedent mess up with \r
-    expect(
-      unwrapMdxCodeBlocks(`
-# Title\r
-\`\`\`mdx-code-block\r
-import Comp, {User} from "@site/components/comp"\r
-\r
-<Comp prop="test">\r
-  <User user={{firstName: "Sébastien"}} />\r
-</Comp>\r
-\r
-export const age = 36\r
-\`\`\`\r
-\r
-text\r
-`),
-    ).toBe(`
-# Title\r
-import Comp, {User} from "@site/components/comp"\r
-\r
-<Comp prop="test">\r
-  <User user={{firstName: "Sébastien"}} />\r
-</Comp>\r
-\r
-export const age = 36\r
-\r
-text\r
-`);
-  });
-
   it('can unwrap a nested mdx code block', () => {
     expect(
       unwrapMdxCodeBlocks(dedent`
@@ -1280,38 +1249,6 @@ text\r
         A canary release passes all automated tests and is used in production by the Docusaurus site itself.
 
         </VersionsProvider>
-    `);
-  });
-
-  it('allow spaces before mdx-code-block info string', () => {
-    expect(
-      unwrapMdxCodeBlocks(dedent`
-        # Title
-
-        \`\`\` mdx-code-block
-        import Comp, {User} from "@site/components/comp"
-
-        <Comp prop="test">
-          <User user={{firstName: "Sébastien"}} />
-        </Comp>
-
-        export const age = 36
-        \`\`\`
-
-        text
-    `),
-    ).toEqual(dedent`
-        # Title
-
-        import Comp, {User} from "@site/components/comp"
-
-        <Comp prop="test">
-          <User user={{firstName: "Sébastien"}} />
-        </Comp>
-
-        export const age = 36
-
-        text
     `);
   });
 });

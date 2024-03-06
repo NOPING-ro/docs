@@ -37,6 +37,5 @@
     "*.min.*",
     "jest/vendor"
   ],
-  "ignoreRegExpList": ["Email", "Urls", "#[\\w-]*"],
-  "enableFiletypes": ["mdx"]
+  "ignoreRegExpList": ["Email", "Urls", "#[\\w-]*"]
 }

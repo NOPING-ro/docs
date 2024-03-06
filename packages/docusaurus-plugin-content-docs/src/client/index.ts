@@ -86,20 +86,10 @@ export const useAllDocsData = (): {[pluginId: string]: GlobalPluginData} =>
       }
     | undefined) ?? StableEmptyObject;
 
-export const useDocsData = (pluginId: string | undefined): GlobalPluginData => {
-  try {
-    return usePluginData('docusaurus-plugin-content-docs', pluginId, {
-      failfast: true,
-    }) as GlobalPluginData;
-  } catch (error) {
-    throw new Error(
-      `You are using a feature of the Docusaurus docs plugin, but this plugin does not seem to be enabled${
-        pluginId === 'Default' ? '' : ` (pluginId=${pluginId}`
-      }`,
-      {cause: error as Error},
-    );
-  }
-};
+export const useDocsData = (pluginId: string | undefined): GlobalPluginData =>
+  usePluginData('docusaurus-plugin-content-docs', pluginId, {
+    failfast: true,
+  }) as GlobalPluginData;
 
 // TODO this feature should be provided by docusaurus core
 export function useActivePlugin(

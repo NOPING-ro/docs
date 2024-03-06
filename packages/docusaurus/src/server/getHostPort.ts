@@ -54,10 +54,7 @@ async function choosePort(
   defaultPort: number,
 ): Promise<number | null> {
   try {
-    const port = await detect({
-      port: defaultPort,
-      ...(host !== 'localhost' && {hostname: host}),
-    });
+    const port = await detect({port: defaultPort, hostname: host});
     if (port === defaultPort) {
       return port;
     }

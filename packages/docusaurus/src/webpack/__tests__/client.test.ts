@@ -7,31 +7,21 @@
 
 import webpack from 'webpack';
 
-import {createBuildClientConfig, createStartClientConfig} from '../client';
+import createClientConfig from '../client';
 import {loadSetup} from '../../server/__tests__/testUtils';
 
 describe('webpack dev config', () => {
-  it('simple start', async () => {
+  it('simple', async () => {
     const props = await loadSetup('simple-site');
-    const {clientConfig} = await createStartClientConfig({props});
-    webpack.validate(clientConfig);
+    const config = await createClientConfig(props);
+    const errors = webpack.validate(config);
+    expect(errors).toBeUndefined();
   });
 
-  it('simple build', async () => {
-    const props = await loadSetup('simple-site');
-    const {config} = await createBuildClientConfig({props});
-    webpack.validate(config);
-  });
-
-  it('custom start', async () => {
+  it('custom', async () => {
     const props = await loadSetup('custom-site');
-    const {clientConfig} = await createStartClientConfig({props});
-    webpack.validate(clientConfig);
-  });
-
-  it('custom build', async () => {
-    const props = await loadSetup('custom-site');
-    const {config} = await createBuildClientConfig({props});
-    webpack.validate(config);
+    const config = await createClientConfig(props);
+    const errors = webpack.validate(config);
+    expect(errors).toBeUndefined();
   });
 });

@@ -203,10 +203,7 @@ module.exports = {
       })),
     ],
     'no-template-curly-in-string': WARNING,
-    'no-unused-expressions': [
-      WARNING,
-      {allowTaggedTemplates: true, allowShortCircuit: true},
-    ],
+    'no-unused-expressions': [WARNING, {allowTaggedTemplates: true}],
     'no-useless-escape': WARNING,
     'no-void': [ERROR, {allowAsStatement: true}],
     'prefer-destructuring': WARNING,

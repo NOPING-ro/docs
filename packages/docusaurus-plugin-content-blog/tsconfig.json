@@ -1,6 +1,5 @@
 {
   "extends": "../../tsconfig.json",
-  "references": [{"path": "./tsconfig.client.json"}],
   "compilerOptions": {
     "noEmit": false,
     "incremental": true,
@@ -9,5 +8,5 @@
     "outDir": "lib"
   },
   "include": ["src"],
-  "exclude": ["src/client", "**/__tests__/**"]
+  "exclude": ["**/__tests__/**"]
 }

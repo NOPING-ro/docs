@@ -190,21 +190,16 @@ export default async function createConfigAsync() {
       preprocessor: ({filePath, fileContent}) => {
         let result = fileContent;
 
-        // This fixes Crowdin bug altering MDX comments on i18n sites...
-        // https://github.com/facebook/docusaurus/pull/9220
         result = result.replaceAll('{/_', '{/*');
         result = result.replaceAll('_/}', '*/}');
 
         if (isDev) {
-          const isPartial = path.basename(filePath).startsWith('_');
-          if (!isPartial) {
-            // "vscode://file/${projectPath}${filePath}:${line}:${column}",
-            // "webstorm://open?file=${projectPath}${filePath}&line=${line}&column=${column}",
-            const vscodeLink = `vscode://file/${filePath}`;
-            const webstormLink = `webstorm://open?file=${filePath}`;
-            const intellijLink = `idea://open?file=${filePath}`;
-            result = `${result}\n\n---\n\n**DEV**: open this file in [VSCode](<${vscodeLink}>) | [WebStorm](<${webstormLink}>) | [IntelliJ](<${intellijLink}>)\n`;
-          }
+          // "vscode://file/${projectPath}${filePath}:${line}:${column}",
+          // "webstorm://open?file=${projectPath}${filePath}&line=${line}&column=${column}",
+          const vscodeLink = `vscode://file/${filePath}`;
+          const webstormLink = `webstorm://open?file=${filePath}`;
+          const intellijLink = `idea://open?file=${filePath}`;
+          result = `${result}\n\n---\n\n**DEV**: open this file in [VSCode](<${vscodeLink}>) | [WebStorm](<${webstormLink}>) | [IntelliJ](<${intellijLink}>)\n`;
         }
 
         return result;
@@ -453,8 +448,6 @@ export default async function createConfigAsync() {
               type: 'all',
               copyright: `Copyright © ${new Date().getFullYear()} Facebook, Inc.`,
             },
-            blogTitle: 'Docusaurus blog',
-            blogDescription: 'Read blog posts about Docusaurus from the team',
             blogSidebarCount: 'ALL',
             blogSidebarTitle: 'All our posts',
           } satisfies BlogOptions,
@@ -499,7 +492,7 @@ export default async function createConfigAsync() {
       announcementBar: {
         id: 'announcementBar-3', // Increment on change
         // content: `⭐️ If you like Docusaurus, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/facebook/docusaurus">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/docusaurus">Twitter ${TwitterSvg}</a>`,
-        content: `🎉️ <b><a target="_blank" href="https://docusaurus.io/blog/releases/3.0">Docusaurus v3.0</a> is now out!</b> 🥳️`,
+        content: `🎉️ <b><a target="_blank" href="https://docusaurus.io/blog/releases/3.0">Docusaurus v3.0</a> it now out!</b> 🥳️`,
       },
       prism: {
         additionalLanguages: [
@@ -710,13 +703,6 @@ export default async function createConfigAsync() {
                 html: `
                 <a href="https://www.netlify.com" target="_blank" rel="noreferrer noopener" aria-label="Deploys by Netlify">
                   <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg" alt="Deploys by Netlify" width="114" height="51" />
-                </a>
-              `,
-              },
-              {
-                html: `
-                <a href="https://argos-ci.com" target="_blank" rel="noreferrer noopener" aria-label="Covered by Argos">
-                  <img src="https://argos-ci.com/badge.svg" alt="Covered by Argos" width="133" height="20" />
                 </a>
               `,
               },

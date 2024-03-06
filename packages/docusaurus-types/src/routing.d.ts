@@ -60,11 +60,6 @@ export type RouteConfig = {
   routes?: RouteConfig[];
   /** React router config option: `exact` routes would not match subroutes. */
   exact?: boolean;
-  /**
-   * React router config option: `strict` routes are sensitive to the presence
-   * of a trailing slash.
-   */
-  strict?: boolean;
   /** Used to sort routes. Higher-priority routes will be placed first. */
   priority?: number;
   /** Extra props; will be copied to routes.js. */
@@ -75,7 +70,7 @@ export type RouteContext = {
   /**
    * Plugin-specific context data.
    */
-  data?: {[key: string]: unknown};
+  data?: object | undefined;
 };
 
 /**
